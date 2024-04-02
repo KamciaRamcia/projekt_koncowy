@@ -1,0 +1,1 @@
+slownik = {'fox': 'lis','pneumonoultramicroscopicsilicovolcanoconiosis':'krzemica','orange':'pomaranczowy', "purple":"fioletowy", "owl":"sowa", "dog":"pies","cat":"kot"}

@@ -1,5 +1,5 @@
 from tkinter import Tk, Button
-#import tlumaczenia.slowa as sl
+import tlumaczenia.slowa as sl
 import interface.interface_memo_game
 
 class Buttony:

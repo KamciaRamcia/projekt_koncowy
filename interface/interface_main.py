@@ -3,7 +3,7 @@ from tkinter import *
 import interface_memo_game
 import interface_add_fishcard
 import interface_fishcard_list
-#import tlumaczenia.slowa as slowa
+import tlumaczenia.slowa as slowa
 
 class FirstPage0:
 

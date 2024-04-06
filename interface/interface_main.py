@@ -4,15 +4,19 @@ import interface_memo_game
 import interface_add_fishcard
 import interface_fishcard_list
 import tlumaczenia.slowa as slowa
+import tksvg
+
+
 
 class FirstPage0:
 
     def __init__(self, root):
         self.root = root
 
+
     def get_settings(self):
         # Window settings
-        self.root.geometry("100x200")
+        self.root.geometry("600x300")
 
     def get_run_memo_game(self):
         self.root.destroy()
@@ -27,15 +31,19 @@ class FirstPage0:
         interface_fishcard_list.generateFishcardList()
 
     def get_button(self):
-        # Add buttons
-        Button(self.root, text="Play example memo", command=lambda:self.get_run_memo_game()).pack()
-        Button(self.root, text="Dodaj Fiszki", command=lambda:self.get_run_add_fishcard()).pack()
-        Button(self.root, text="Moje Fiszki", command=lambda:self.get_run_fishcard_list()).pack()
-        Button(self.root, text="Exit", command=self.root.destroy).pack()
+        Button(self.root, text="Zagraj w memo", command=lambda:self.get_run_memo_game(), width=20, height=2).pack(pady=4)
+        Button(self.root, text="Dodaj Fiszki", command=lambda:self.get_run_add_fishcard(),width=20, height=2).pack(pady=4)
+        Button(self.root, text="Zarządzaj fiszkami", command=lambda:self.get_run_fishcard_list(),width=20, height=2).pack(pady=4)
+        Button(self.root, text="Exit", command=self.root.destroy,width=20, height=2).pack(pady=4)
+    def get_welcoem_sign(self):
+        Label(self.root,text='Witaj!').pack(pady=5)
+        Label(self.root, text='Aplikacja pomoże Ci w nauce słówek, Wgraj swoje fiszki, zarządzaj nimi lub zagraj w przykładową gre!').pack(pady=5)
 
     def get_run_first_page(self):
         # Launching the application
         self.get_settings()
+        self.get_welcoem_sign()
+
         self.get_button()
         self.root.mainloop()
 

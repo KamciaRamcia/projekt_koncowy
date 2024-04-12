@@ -1,7 +1,7 @@
 import importlib
 from tkinter import *
 from features import feature_add_fishcard as aff
-from interface.interface_memo_game import memoGame
+from interface.interface_memo_game import *
 
 #def show_message(var, dictionary):
 #    if var:

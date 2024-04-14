@@ -14,10 +14,5 @@ def winnerInformation(green_counter, red_counter):   # zmien nazwe na memo_game
     def back_to_menu_actions():
         root.destroy()
         im.FirstPage0(Tk()).get_run_first_page()
-       # env.destroy()
-
-
-
-
 
     root.mainloop()

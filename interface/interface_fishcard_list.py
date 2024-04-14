@@ -3,6 +3,7 @@ import os
 from tkinter import *
 import interface_memo_game
 from features import featrue_fishcard_list  as ffl
+from features.featrue_fishcard_list import NewListElement
 
 from interface.interface_memo_game import *
 
@@ -18,20 +19,6 @@ def get_play_button():
 def get_delete_button():
     pass
 
-def create_one_row(root,fishcard_name,start_row):
-
-        text = importlib.import_module(f'tlumaczenia.{fishcard_set_name}') #sciezka w formie textu do przycisku PLAY
-        label_name=Label(root, text=fishcard_set_name)
-        label_name.grid(row=start_row, column=1)
-        button_play=Button(root, text="Play Game", command=lambda: interface_memo_game.memoGame(text.slownik))\
-
-        self.lista_buttonow.append(button_play)
-        button_play.grid(row=NewListElement.start_row, column=6)
-        button_remove = tk.Button(self.root, text="Remove fishcard set", command=lambda: self.delete_fishcard(button_play, button_remove, label_name))
-        self.lista_buttonow.append(button_remove)
-        button_remove.grid(row=NewListElement.start_row, column=7)
-        NewListElement.start_row = + 1
-        print(self.lista_buttonow)
 
 
 
@@ -42,18 +29,22 @@ def generateFishcardList(): # ZMIEN NAZW NA ADD_FISHCARD
     root.geometry("600x600")
 
 
+    # stworzenie framu z tytułem
+    title_frame = Frame(root, height=20)
+    title_frame.config(bg='orange')
+    title_frame.grid(row=0, column=0, padx=10, pady=10)
+    Label(title_frame, text="Lista Twoich fiszek", bg='red', anchor='center').grid(padx=5, pady=5)
 
-    Label(root,text="Lista Twoich fiszek",bg='blue').grid(row=1, column=2)
+    list_frame = Frame(root, height=20)
+    list_frame.config(bg='black')
+    list_frame.grid(row=2, column=0, padx=10, pady=10)
+
+
     start_row = 3
     for file in listOfFiles():
         print(file)
         dictionary_name = file[:-3]
         print(dictionary_name)
-        #create_one_row(root,dictionary_name,start_row)
-        ffl.NewListElement(dictionary_name,root).create_elements()
-
-
-\
-
+        ffl.NewListElement(dictionary_name,list_frame).create_elements()
 
     root.mainloop()

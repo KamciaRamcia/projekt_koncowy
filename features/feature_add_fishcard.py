@@ -35,10 +35,11 @@ class NewFishcardSet:
     def set_of_checks(self):
         self.check_duplicate_words()
         self.check_the_longest_word()
-        
+        self.check_quantity_of_pairs()
         self.check_duplicate_set_name()
         self.check_correct_path()
         self.check_space_in_set_name()
+
 #-----------------------------sprawdzenia nazwy pliku------------------------
     def check_duplicate_set_name(self): # spr czy nazwa pliku juz istnieje
         print(self.fishcard_set_name)
@@ -68,8 +69,12 @@ class NewFishcardSet:
         else:
             print('sa duplikaty w slowach')
 
+    def check_quantity_of_pairs(self):
+        if (len(self.dictionary))<=25:
+            print('liczba par mniejsza rowna 25')
+        else:
+            print('liczba par wieksza niz 25')
 
-        pass
     def check_the_longest_word(self): # spr dlugosc nazwy
         if len(max(self.fishcards_list))>=45:
             print('któreś ze slow ma więcej niz 45 znakow')

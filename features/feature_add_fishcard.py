@@ -1,4 +1,5 @@
 import os
+import csv
 
 class NewFishcardSet:
 
@@ -8,24 +9,37 @@ class NewFishcardSet:
         self.is_uploaded=False
         self.chceck_status=True
         self.dictionary = self.csv_to_dict()
+        self.fishcards_list = self.csv_to_list()
 
     def csv_to_dict(self):
-        import csv
-        with open(self.path, mode='r',encoding="windows-1250") as infile:
-            reader = csv.DictReader(infile)
+        # import csv
+        with open(self.path, mode='r',encoding="windows-1250") as content:
+            reader = csv.DictReader(content)
             data = {row['angielski']:row['polski'] for row in reader}
         return data
 
-    def generate_files_list(self):
+    def csv_to_list(self):
+        fishcards_list = []
+        with open(self.path, mode='r',encoding="windows-1250") as content:
+            for line in content.readlines():
+                word_eng, word_pol = line.strip().replace('"','').split(',')
+                fishcards_list.append(word_eng)
+                fishcards_list.append(word_pol)
+        return fishcards_list
+
+    def generate_files_list(self):          #generuje liste plikow w folderu tlumaczenia
         files = os.listdir('../tlumaczenia/')
         files_file = [f for f in files if os.path.isfile(os.path.join('../tlumaczenia/', f))]
         return(files_file)
 
     def set_of_checks(self):
+        self.check_duplicate_words()
+        self.check_the_longest_word()
+        
         self.check_duplicate_set_name()
         self.check_correct_path()
         self.check_space_in_set_name()
-
+#-----------------------------sprawdzenia nazwy pliku------------------------
     def check_duplicate_set_name(self): # spr czy nazwa pliku juz istnieje
         print(self.fishcard_set_name)
         if (self.fishcard_set_name+'.py') in self.generate_files_list():
@@ -40,25 +54,32 @@ class NewFishcardSet:
             self.chceck_status = False
 
 
-    def check_correct_path(self):
+    def check_correct_path(self): # zmien nazwe na spr czy plik csv
         if self.path[-4:] !='.csv':
             print(' format inny niz .csv')
             self.chceck_status=False
         else:
             print('correct')
             self.save_fishcard_set(self.dictionary)
+#-------------------------sprawdzenia zawartosci pliku-------------------------
+    def check_duplicate_words(self): # spr czy nazwa pliku juz istnieje
+        if len(self.fishcards_list)==len(set(self.fishcards_list)):
+            print('slowa są unikatowe')
+        else:
+            print('sa duplikaty w slowach')
 
-    def check_duplicate_fishcard(self): # spr czy nazwa pliku juz istnieje
-        # duplikat w kluczu
-        #duplikat w atrybucie
-
-        pass
-    def check_duplicate_fishcard(self): # spr dlugosc nazwy
-        # duplikat w kluczu
-        #duplikat w atrybucie
 
         pass
+    def check_the_longest_word(self): # spr dlugosc nazwy
+        if len(max(self.fishcards_list))>=45:
+            print('któreś ze slow ma więcej niz 45 znakow')
+        else:
+            print('slowa maja mniej niz 45 znakow')
 
+#---------------------------sprawdz poprawnosc sciezki------------------------------
+    def chceck_if_correct_path(self):
+        pass
+        # wyrzuc exception na plik nie istnieje w sciezce
 
     def save_fishcard_set(self,fishcard_dictionary):
 

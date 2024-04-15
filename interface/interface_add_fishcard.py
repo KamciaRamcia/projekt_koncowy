@@ -5,59 +5,55 @@ from PIL import ImageTk, Image
 
 from features import feature_add_fishcard as aff
 from interface import interface_memo_game as mg
-
+from interface import interface_main as im
 class AddFishcardPage:
+
+    global csv_file_screenshot   # obejscie do problemu z wyswietlaniem grafik --  Pytho removes image from memory when image is assigned to local variable (variable created in function). Change variable to global to make it save
+    global background_image
 
     def __init__(self):
         self.root = Tk()
-        self.title_frame = Frame(self.root)
-        self.elements_frame = Frame(self.root)
-        self.success_frame = Frame(self.root)
-        self.tutorial_frame = Frame(self.root)
+        self.tutorial_start_row = 2
+        self.elements_start_row = 6
+
 
     def set_window(self):
         self.root.geometry("600x600")
-        self.root.configure(bg='skyblue')
-        self.title_frame.grid(row=1, column=1, pady=5)
-        self.tutorial_frame.grid(row=2, column=1, pady=5, padx=20)
-        self.elements_frame.grid(row=3, column=1, pady=5)
-        self.success_frame.grid(row=5, column=1,pady=5)
+        #self.root.resizable(width=False, height=False)
 
+
+        AddFishcardPage.background_image = PhotoImage(file="../images/fish.gif")
+        Label(self.root, image=AddFishcardPage.background_image).place(relheight=1, relwidth=1)
 
     def create_title(self):
 
-        Label(self.title_frame, text="DODAJ SWOJE FISZKI", bg='blue').grid(row=1, column=2)
+        Label(self.root, text="DODAJ SWOJE FISZKI", bg='blue').grid(row=1, column=1)
     def elements_for_enter_path(self):
 
-        Label(self.elements_frame, text="Ścieżka do pliku csv: ").grid(row=2, column=1, pady=5)
-        path_textbox = Text(self.elements_frame, height=1, width=40, pady=5)
-        path_textbox.grid(row=2, column=2)
+        Label(self.root, text="Ścieżka do pliku csv: ").grid(row=self.elements_start_row, column=1, pady=5, padx=5)
+        path_textbox = Text(self.root, height=1, width=70, pady=5)
+        path_textbox.grid(row=self.elements_start_row, column=2,pady=5)
 
     def elements_for_fishcard_name(self):
-        Label(self.elements_frame, text="Nazwa fiszek: ").grid(row=3, column=1,pady=5)
-        fishcard_name_textbox = Text(self.elements_frame, height=1, width=40, pady=5)
-        fishcard_name_textbox.grid(row=3, column=2)
+        Label(self.root, text="Nazwa fiszek: ").grid(row=self.elements_start_row+1, column=1,pady=5)
+        fishcard_name_textbox = Text(self.root, height=1, width=70, pady=5)
+        fishcard_name_textbox.grid(row=self.elements_start_row+1, column=2,pady=5)
 
     def elements_for_tutorial(self):
-        Label(self.tutorial_frame,text="Jak dodać swoją liste fiszek? To bardzo proste! Musisz tylko przestrzegać kilku zasad").grid(row=1,column=1,padx=5)
-        Label(self.tutorial_frame, text="1. Upewnij się, że Twój plik jest w formacie csv").grid(row=2, column=1,padx=5)
-        Label(self.tutorial_frame, text = "2. Upewnij się, że Twój plik zawiera maksymalnie 25 par slowo-tłumaczenie").grid(row=3, column=1,padx=5)
-        Label(self.tutorial_frame, text = "3. Sprawdź czy pierwszy wiersz w Twoim pliku zawiera nazwę języków, jak na grafice poniżej").grid(row=4, column=1,padx=5)
-        csv_screenshot = ImageTk.PhotoImage(Image.open("../images/add_fishcard_tutorial/csv_tutorial_screen.png"))
-        #MIEJJSCE NA SCREENA JAK JUZ OGARNIESZ JAK WSTAWIAĆ TE GŁUPIE OBRAZY
-       # rejestracja_button = PhotoImage(file="../images/button.png")
-       # rejestracja = Label(self.tutorial_frame, text="", image=csv_screenshot, height=50, width=200)
-       # rejestracja.place(x=1, y=3)
+        Label(self.root,borderwidth=0,text="Jak dodać swoją liste fiszek? To bardzo proste! Musisz tylko przestrzegać kilku zasad")#.grid(row=2,column=1,padx=5)
 
-        #label = Label(self.tutorial_frame, text="Image", image=csv_screenshot, compound="top")
-        #label = Label(self.tutorial_frame,image=csv_screenshot)
-        #label.grid()
+        Label(self.root, text="1. Upewnij się, że Twój plik jest w formacie csv").grid(row=self.tutorial_start_row, column=2,padx=5)
+        Label(self.root, text = "2. Upewnij się, że Twój plik zawiera maksymalnie 25 par slowo-tłumaczenie").grid(row=self.tutorial_start_row+1, column=2,padx=5)
+        Label(self.root, text = "3. Sprawdź czy pierwszy wiersz w Twoim pliku zawiera nazwę języków, jak na grafice poniżej").grid(row=self.tutorial_start_row+2, column=2,padx=5)
+
+        AddFishcardPage.csv_file_screenshot  =  PhotoImage(file="../images/add_fishcard_tutorial/csv_tutorial_screen.gif")
+        Label(self.root, image=AddFishcardPage.csv_file_screenshot, bg='grey').grid(row=self.tutorial_start_row+3, column=2,pady=5)
 
     def get_input_from_path_textbox(self):
         path = r"C:\Users\siost\OneDrive\Pulpit\slowka_kuchnia.csv"
         return path
     def get_input_from_name_textbox(self):
-        fishcard_name = 'nowy slownik'
+        fishcard_name = 'nowy1 slownik'
         return fishcard_name
     def run_set_of_checks(self, path, fishcard_name):
         print(path)
@@ -66,8 +62,8 @@ class AddFishcardPage:
         check_procedure.set_of_checks()
         if check_procedure.is_uploaded:
             text=importlib.import_module(f'tlumaczenia.{check_procedure.fishcard_set_name}')
-            Label(self.success_frame, text="uploaded succesffully: ").grid(row=5, column=1)
-            Button(self.success_frame, height=1, width=10, text="play", command=lambda: mg.MemoGamePage(text.slownik).get_run()).grid(row=4, column=2)
+            Label(self.root, text="uploaded succesffully: ").grid(row=10, column=2, padx=10)
+            Button(self.root, height=1, width=10, text="play", command=lambda: mg.MemoGamePage(text.slownik).get_run()).grid(row=11, column=2, padx=10)
 
     def get_run(self):
         self.set_window()

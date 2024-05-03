@@ -54,6 +54,11 @@ class NewFishcardSet:
             print('empty space in name')
             self.chceck_status = False
 
+    def check_name_length(self):
+        if len(self.fishcard_set_name)>30:
+            print('name is too long ')
+            self.chceck_status = False
+
 
     def check_correct_path(self): # zmien nazwe na spr czy plik csv
         if self.path[-4:] !='.csv':
@@ -63,23 +68,25 @@ class NewFishcardSet:
             print('correct')
             self.save_fishcard_set(self.dictionary)
 #-------------------------sprawdzenia zawartosci pliku-------------------------
-    def check_duplicate_words(self): # spr czy nazwa pliku juz istnieje
+    def check_duplicate_words(self): # spr czy nazwa pliku juz istnieje ??????????????????????????? ogarnij to
         if len(self.fishcards_list)==len(set(self.fishcards_list)):
             print('slowa są unikatowe')
         else:
             print('sa duplikaty w slowach')
 
-    def check_quantity_of_pairs(self):
+    def check_quantity_of_pairs(self): # spr liczbe par !!!!!!!!!!!!!!!!!!!!!! musisz konwertowac na liste bo w dictcie nie widzi powtorzen
         if (len(self.dictionary))<=25:
             print('liczba par mniejsza rowna 25')
         else:
             print('liczba par wieksza niz 25')
 
     def check_the_longest_word(self): # spr dlugosc nazwy
-        if len(max(self.fishcards_list))>=45:
-            print('któreś ze slow ma więcej niz 45 znakow')
+        if len(max(self.fishcards_list))>=40:
+            print('któreś ze slow ma więcej niz 40 znakow')
         else:
-            print('slowa maja mniej niz 45 znakow')
+            print('slowa maja mniej niz 40 znakow')
+
+# brakuje sprawdz czy klucze i atrybuty maja duplikaty
 
 #---------------------------sprawdz poprawnosc sciezki------------------------------
     def chceck_if_correct_path(self):

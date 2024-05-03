@@ -4,12 +4,12 @@ import interface.interface_memo_game as img
 
 
 
-def winnerInformation(green_counter, red_counter):   # zmien nazwe na memo_game
+def winnerInformation(click_counter):   # zmien nazwe na memo_game
     root = Tk()
     root.geometry("300x300")
     root.config(bg="skyblue")
     Label(root, text=f'Wygrałeś!').pack()
-    Label(root, text=f'Twoja liczka ruchów to: {red_counter + green_counter}').pack()
+    Label(root, text=f'Twoja liczka ruchów to: {click_counter}').pack()  # ruch to wybor pary
     Button(root, text='Wróć do menu głównego', command= lambda: back_to_menu_actions()).pack()
     def back_to_menu_actions():
         root.destroy()

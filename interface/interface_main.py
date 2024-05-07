@@ -1,9 +1,11 @@
 
 from tkinter import *
-import interface_memo_game
+
 import interface_add_fishcard
 import interface_fishcard_list
 import tlumaczenia.slowa as slowa
+import interface.interface_memo_game as img
+
 
 class FirstPage0:
     global button_image
@@ -22,7 +24,7 @@ class FirstPage0:
 
     def get_run_memo_game(self):
         self.root.destroy()
-        interface_memo_game.MemoGamePage(slowa.slownik).get_run()
+        img.MemoGamePage(slowa.slownik).get_run()
 
     def get_run_add_fishcard(self):
         self.root.destroy()
@@ -53,5 +55,6 @@ class FirstPage0:
         self.root.mainloop()
 
 if __name__ == '__main__':
+
     first = FirstPage0(Tk())
     first.get_run_first_page()

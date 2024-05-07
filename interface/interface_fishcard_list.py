@@ -49,4 +49,3 @@ class FishCardListPage:
         self.generateFishcardList()
 
         self.root.mainloop()
-

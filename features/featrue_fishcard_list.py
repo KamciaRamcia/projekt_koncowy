@@ -19,8 +19,8 @@ class NewListElement:
 
 
 
-    def prepare_image(self):
-        NewListElement.button_image = PhotoImage(file="../images/add_fishcard_tutorial/button.png")
+  #  def prepare_image(self):
+ #       NewListElement.button_image = PhotoImage(file="../images/add_fishcard_tutorial/button.png")
     def create_elements(self):
 
         frame = Frame(self.root, bg='SkyBlue')
@@ -54,12 +54,3 @@ class NewListElement:
     def play_game_actions(self, your_dictionary):
         self.root.destroy()
         interface_memo_game.MemoGamePage(your_dictionary).get_run()
-
-
-
-
-
-
-
-
-

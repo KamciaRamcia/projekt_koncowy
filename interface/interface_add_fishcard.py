@@ -1,11 +1,11 @@
 import importlib
 from tkinter import *
 
-from PIL import ImageTk, Image
-
+import interface.interface_upload_status_window
+import interface_fishcard_list
 from features import feature_add_fishcard as aff
-from interface import interface_memo_game as mg
-from interface import interface_main as im
+
+
 class AddFishcardPage:
 
     global csv_file_screenshot   # obejscie do problemu z wyswietlaniem grafik --  Python removes image from memory when image is assigned to local variable (variable created in function). Change variable to global to make it save
@@ -18,10 +18,9 @@ class AddFishcardPage:
         self.tutorial_start_row = 2
         self.elements_start_row = 6
 
-
     def set_window(self):
         self.root.geometry("750x600")
-        #self.root.resizable(width=False, height=False)
+        self.root.resizable(width=False, height=False)
 
         AddFishcardPage.background_image = PhotoImage(file="../images/fish.gif")
         AddFishcardPage.button_image = PhotoImage(file="../images/add_fishcard_tutorial/button.png")
@@ -30,6 +29,7 @@ class AddFishcardPage:
     def create_title(self):
 
         Label(self.root, text="DODAJ SWOJE FISZKI", bg='SkyBlue',font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=1, column=2, pady=10)
+
     def elements_for_input_box(self):
 
         Label(self.root, text="Ścieżka do pliku csv: ",font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=self.elements_start_row, column=1, pady=5, padx=5)
@@ -54,20 +54,23 @@ class AddFishcardPage:
         Label(tutorial_text_frame, image=AddFishcardPage.csv_file_screenshot, bg='grey').grid(row=self.tutorial_start_row+3, column=2,pady=5)
 
     def get_input_from_both_textboxes(self,path_textbox,fishcard_name_textbox):
-        #path = r"C:\Users\siost\OneDrive\Pulpit\slowka_kuchnia.csv"
+
         path = path_textbox.get("1.0",'end-1c')
         fishcard_name = fishcard_name_textbox.get("1.0",'end-1c')
         self.run_set_of_checks(path,fishcard_name)
 
     def run_set_of_checks(self, path, fishcard_name):
-        print(path)
-        print(fishcard_name)
+
         check_procedure = aff.NewFishcardSet(path, fishcard_name)
         check_procedure.set_of_checks()
-        if check_procedure.is_uploaded:
-            text=importlib.import_module(f'tlumaczenia.{check_procedure.fishcard_set_name}')
-            Label(self.root, text="uploaded succesffully: ").grid(row=10, column=2, padx=10)
-            Button(self.root, height=1, width=10, text="play", command=lambda: mg.MemoGamePage(text.slownik).get_run()).grid(row=11, column=2, padx=10)
+        print(check_procedure.message)
+        self.root.destroy()
+        interface.interface_upload_status_window.uploadStatus(check_procedure.message)
+
+
+    def get_run_fishcard_list(self):
+        self.root.destroy()
+        interface_fishcard_list.FishCardListPage().get_run()
 
     def get_run(self):
         self.set_window()
@@ -76,10 +79,5 @@ class AddFishcardPage:
         self.elements_for_input_box()
         self.root.mainloop()
 
-#def show_message(var, dictionary):
-#    if var:
-#        return var, dictionary
 
-    # Create a button for Comment
-  #  Button(frame, height=1, width=10, text="Comment", command=lambda: get_input(path_textbox, fishcard_name_textbox)).grid(row=4, column=2)
 

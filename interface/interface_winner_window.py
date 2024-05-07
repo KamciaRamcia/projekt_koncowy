@@ -1,6 +1,6 @@
 from tkinter import *
 import interface.interface_main as im
-import interface.interface_memo_game as img
+
 
 
 

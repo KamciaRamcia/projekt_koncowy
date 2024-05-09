@@ -1,0 +1,1 @@
+slownik = {'fox': 'lis','mouse':'mysz', "rat":"szczur", "owl":"sowa", "dog":"pies","cat":"kot",'hamster': 'chomik','guinea pig':'świnka morska','goldfish':'złota rybka', "canary":"kanarek", "rabbit":"królik", "parrot":"papuga","turtle":"żółw"}

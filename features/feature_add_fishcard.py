@@ -8,11 +8,11 @@ class NewFishcardSet:
         self.fishcard_set_name=fishcard_set_name
         self.is_uploaded=False
         self.chceck_status=True
-        self.dictionary = self.csv_to_dict()
-        self.fishcards_list = self.csv_to_list()
+        self.dictionary = {}
+        self.fishcards_list = []
+        self.message = ''
 
     def csv_to_dict(self):
-        # import csv
         with open(self.path, mode='r',encoding="windows-1250") as content:
             reader = csv.DictReader(content)
             data = {row['angielski']:row['polski'] for row in reader}
@@ -33,72 +33,82 @@ class NewFishcardSet:
         return(files_file)
 
     def set_of_checks(self):
-        self.check_duplicate_words()
-        self.check_the_longest_word()
-        self.check_quantity_of_pairs()
-        self.check_duplicate_set_name()
-        self.check_correct_path()
-        self.check_space_in_set_name()
+        self.check_quantity_fishcard_list()
+        if self.chceck_status == True:
+            self.chceck_if_correct_path()
+            if self.chceck_status == True:
+                self.check_if_file_csv()
+                if self.chceck_status == True:
+                    self.fishcards_list = self.csv_to_list()
+
+                    self.check_duplicate_words()
+                    self.check_the_longest_word()
+                    self.check_quantity_of_pairs()
+                    self.check_name_length()
+                    self.check_duplicate_set_name()
+
+                    if self.chceck_status == True:
+                        self.dictionary = self.csv_to_dict()
+                        self.save_fishcard_set()
+
+#------------------------sprawdzenie ilosci list fiszek ---------------------------
+    def check_quantity_fishcard_list(self):
+        list_of_fishcard = self.generate_files_list()
+        if len(list_of_fishcard)>=10:
+            self.chceck_status = False
+            self.message = 'Jest za dużo zbiorów fiszek. Usuń zbiór żeby dodać nowy - zrobisz to w LIŚCIE FISZEK'
 
 #-----------------------------sprawdzenia nazwy pliku------------------------
-    def check_duplicate_set_name(self): # spr czy nazwa pliku juz istnieje
+    def check_duplicate_set_name(self):
         print(self.fishcard_set_name)
         if (self.fishcard_set_name+'.py') in self.generate_files_list():
-            message = 'Istnieje juz zestaw fiszek o tej nazwie'
-            print(message)
-            self.chceck_status = False
-            print(self.chceck_status)
-
-    def check_space_in_set_name(self):
-        if (' ') in self.fishcard_set_name:
-            print('empty space in name')
+            self.message = 'Istnieje już zestaw fiszek o tej nazwie. Zmień nazwę, aby dodać swój zbiór.'
             self.chceck_status = False
 
     def check_name_length(self):
         if len(self.fishcard_set_name)>30:
+            self.message = 'Nazwa zbioru fiszek jest za długa. Ogranicz się do 30 znaków.'
             print('name is too long ')
             self.chceck_status = False
 
 
-    def check_correct_path(self): # zmien nazwe na spr czy plik csv
+    def check_if_file_csv(self):
         if self.path[-4:] !='.csv':
-            print(' format inny niz .csv')
+            self.message = 'Format jest inny niz .csv. Wgraj plik w formacie .csv.'
             self.chceck_status=False
-        else:
-            print('correct')
-            self.save_fishcard_set(self.dictionary)
-#-------------------------sprawdzenia zawartosci pliku-------------------------
-    def check_duplicate_words(self): # spr czy nazwa pliku juz istnieje ??????????????????????????? ogarnij to
-        if len(self.fishcards_list)==len(set(self.fishcards_list)):
-            print('slowa są unikatowe')
-        else:
-            print('sa duplikaty w slowach')
 
-    def check_quantity_of_pairs(self): # spr liczbe par !!!!!!!!!!!!!!!!!!!!!! musisz konwertowac na liste bo w dictcie nie widzi powtorzen
-        if (len(self.dictionary))<=25:
-            print('liczba par mniejsza rowna 25')
-        else:
-            print('liczba par wieksza niz 25')
+#-------------------------sprawdzenia zawartosci pliku-------------------------
+    def check_duplicate_words(self):
+        if len(self.fishcards_list)>len(set(self.fishcards_list)):
+            self.message =('W pliku są słowa które się powtarzają. Usuń je, aby wgrać zbiór fiszek.')
+            self.chceck_status = False
+
+    def check_quantity_of_pairs(self):
+        if (len(self.dictionary))>25:
+            self.message =('W pliku jest za dużo fiszek. Ogranicz się do 25 par, aby wgrać plik.')
+            self.chceck_status = False
 
     def check_the_longest_word(self): # spr dlugosc nazwy
         if len(max(self.fishcards_list))>=40:
-            print('któreś ze slow ma więcej niz 40 znakow')
-        else:
-            print('slowa maja mniej niz 40 znakow')
-
-# brakuje sprawdz czy klucze i atrybuty maja duplikaty
+            self.message =('W pliku jest słowo, które jest za długie. Ogranicz się do 40 znaków, aby wgrać plik')
+            self.chceck_status = False
 
 #---------------------------sprawdz poprawnosc sciezki------------------------------
     def chceck_if_correct_path(self):
-        pass
-        # wyrzuc exception na plik nie istnieje w sciezce
+        try:
+            open(self.path,'r')
+        except FileNotFoundError:
+            print('Nie odnaleziono pliku. Sprawdź czy ścieżka jest poprawna.')
+            self.message = 'Nie odnaleziono pliku. Sprawdź czy ścieżka jest poprawna.'
+            self.chceck_status=False
 
-    def save_fishcard_set(self,fishcard_dictionary):
+
+    def save_fishcard_set(self):
 
         filename = '../tlumaczenia/'+self.fishcard_set_name+'.py'
         with open(filename, 'w') as f:
-            print(dict(fishcard_dictionary))
-            f.write(f"slownik = {dict(fishcard_dictionary)}")
+            print(dict(self.dictionary))
+            f.write(f"slownik = {self.dictionary}")
         f.close()
 
         self.status_message()
@@ -106,13 +116,8 @@ class NewFishcardSet:
 
     def status_message(self):
         file_list = self.generate_files_list()
-
         if (self.fishcard_set_name+'.py') in file_list:
-            message= 'Fishcard added succesfully'
-            print(message)
+            self.message = f'Zbiór fiszek {self.fishcard_set_name} został dodany'
             self.is_uploaded=True
 
-        else:
-            message='abc'
-            print(message)
 

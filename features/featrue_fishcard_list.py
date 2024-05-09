@@ -8,7 +8,7 @@ from interface import interface_memo_game
 
 
 class NewListElement:
-
+    your_font = "Amatic SC"
     start_row = 3
     global button_image
 
@@ -17,10 +17,6 @@ class NewListElement:
         self.dictionary_name=dictionary_name
         self.root = root
 
-
-
-  #  def prepare_image(self):
- #       NewListElement.button_image = PhotoImage(file="../images/add_fishcard_tutorial/button.png")
     def create_elements(self):
 
         frame = Frame(self.root, bg='SkyBlue')
@@ -35,13 +31,13 @@ class NewListElement:
         button_play = Button(frame, text="Zagraj", borderwidth=1,
                              image=NewListElement.button_image,
                              compound='center', command=lambda: self.play_game_actions(text.slownik)
-                             ,width=100, height=25,font=("Cooper Black", 10)
+                             ,width=100, height=25,font=(NewListElement.your_font, 15,'bold')
                              )
         button_play.grid(row=NewListElement.start_row, column=3, padx=5, pady=5)
 
         button_remove = Button(frame, text="Usuń zbiór fiszek", borderwidth=1,
                                image=NewListElement.button_image,
-                               compound='center', command=lambda: self.delete_actions(),width=125, height=25,font=("Cooper Black", 10))
+                               compound='center', command=lambda: self.delete_actions(),width=125, height=25,font=(NewListElement.your_font, 15,'bold'))
         button_remove.grid(row=NewListElement.start_row, column=4, padx=5, pady=5)
         print(self.dictionary_name)
 

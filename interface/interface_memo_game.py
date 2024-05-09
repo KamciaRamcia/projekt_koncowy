@@ -7,12 +7,13 @@ from PIL import ImageTk, Image
 
 class MemoGamePage:
     global background_image
+    your_font = "Amatic SC"
     def __init__(self, fishcard_dictionary):
         self.fishcard_dictionary = fishcard_dictionary
         self.root = Tk()
         self.row = 2
         self.column=0
-        self.your_font = "Amatic SC"
+
 
     def set_window(self):
         self.root.geometry("1600x600")
@@ -33,7 +34,7 @@ class MemoGamePage:
         # stworzenie framu z napisem
         frame1= Frame(self.root,height=20, bg='SkyBlue3')
         frame1.grid(row=0,column=0,padx=10,pady=10)
-        Label(frame1, text="Naciskaj kwadraty w celu znlaezienia par slowo-tłumaczenie", bg='SkyBlue1',anchor='center', font=(self.your_font, 15,'bold')).grid(row=1, column=0, padx=5, pady=5)
+        Label(frame1, text="Zaznaczaj kwadraty w celu znlaezienia par slowo-tłumaczenie", bg='SkyBlue1',anchor='center', font=(MemoGamePage.your_font, 15,'bold')).grid(row=1, column=0, padx=5, pady=5)
 
         # stworzenie framu dla elementow slownika
         frame2=Frame(self.root, bg='SkyBlue1')

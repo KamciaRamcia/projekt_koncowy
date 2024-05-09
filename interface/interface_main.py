@@ -3,7 +3,7 @@ from tkinter import *
 
 import interface_add_fishcard
 import interface_fishcard_list
-import tlumaczenia.slowa as slowa
+import example_Fishcard.slowa as slowa
 import interface.interface_memo_game as img
 
 
@@ -20,7 +20,7 @@ class FirstPage0:
         self.root.resizable(width=False, height=False)
         FirstPage0.background_image = PhotoImage(file="../images/fish.gif")
         Label(self.root,image = FirstPage0.background_image).place(relheight=1,relwidth=1)
-        FirstPage0.button_image = PhotoImage(file="../images/add_fishcard_tutorial/button.png")
+        FirstPage0.button_image = PhotoImage(file="../images/button.png")
 
     def get_run_memo_game(self):
         self.root.destroy()
@@ -36,17 +36,17 @@ class FirstPage0:
 
     def get_button(self):
 
-        Button(self.root, text="Zagraj w memo", borderwidth=0,image =  FirstPage0.button_image,compound='center',command=lambda:self.get_run_memo_game(), width=191, height=50,font=("Cooper Black", 11)).pack(pady=4)
-        Button(self.root, text="Dodaj Fiszki", borderwidth=0, image =  FirstPage0.button_image,compound='center',command=lambda:self.get_run_add_fishcard(),width=191, height=50,font=("Cooper Black", 11)).pack(pady=4)
-        Button(self.root, text="Lista Fiszek",borderwidth=0,image =  FirstPage0.button_image,compound='center', command=lambda:self.get_run_fishcard_list(),width=191, height=50,font=("Cooper Black", 11)).pack(pady=4)
-        Button(self.root, text="Exit",borderwidth=0, image = FirstPage0.button_image,compound='center', command=self.root.destroy,width=191, height=50,font=("Cooper Black", 11)).pack(pady=4)
+        Button(self.root, text="Zagraj w przykladową grę", borderwidth=0,image =  FirstPage0.button_image,compound='center',command=lambda:self.get_run_memo_game(), width=191, height=50,font=(self.your_font, 18,'bold')).pack(pady=4)
+        Button(self.root, text="Dodaj Fiszki", borderwidth=0, image =  FirstPage0.button_image,compound='center',command=lambda:self.get_run_add_fishcard(),width=191, height=50,font=(self.your_font, 18,'bold')).pack(pady=4)
+        Button(self.root, text="Lista Fiszek",borderwidth=0,image =  FirstPage0.button_image,compound='center', command=lambda:self.get_run_fishcard_list(),width=191, height=50,font=(self.your_font, 18,'bold')).pack(pady=4)
+        Button(self.root, text="Wyjście",borderwidth=0, image = FirstPage0.button_image,compound='center', command=self.root.destroy,width=191, height=50,font=(self.your_font, 18,'bold')).pack(pady=4)
     def get_welcome_sign(self):
 
         welcome_text_frame = Frame(self.root,bg='SkyBlue')
         welcome_text_frame.pack(side=TOP,pady=10)
 
         Label(welcome_text_frame,text='Witaj!',font=(self.your_font, 15, 'bold'),bg='SkyBlue').pack(pady=5)
-        Label(welcome_text_frame,text='Aplikacja pomoże Ci w nauce słówek. Wgraj swoje fiszki, zarządzaj nimi lub zagraj w przykładową gre!', font=(self.your_font, 13,'bold'),bg='SkyBlue').pack(pady=5)
+        Label(welcome_text_frame,text='Aplikacja pomoże Ci w nauce słówek. Wgraj swoje fiszki, zarządzaj nimi lub zagraj w przykładową grę.', font=(self.your_font, 13,'bold'),bg='SkyBlue').pack(pady=5)
 
     def get_run_first_page(self):
         self.get_settings()

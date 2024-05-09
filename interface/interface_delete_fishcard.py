@@ -9,7 +9,7 @@ def deleteFishcard(dictionary_name):
     root = Tk()
     root.geometry("500x300")
     root.config(bg="skyblue")
-    button_image = PhotoImage(file="../images/add_fishcard_tutorial/button.png")
+    button_image = PhotoImage(file="../images/button.png")
 
 
     Label(root, text=f'Czy na pewno chcesz trwale usunac fiszki: {dictionary_name}?').grid(column = 1, row=1, pady=10, padx=10)

@@ -4,19 +4,25 @@ import interface.interface_main
 from interface import interface_fishcard_list, interface_add_fishcard
 
 global button_image
-def uploadStatus(message):   # zmien nazwe na memo_game
+def uploadStatus(message, isUploaded):   # zmien nazwe na memo_game
 
     print(f'-------------------{message}')
     root = Tk()
     root.geometry("400x400")
     root.config(bg="skyblue")
-    button_image = PhotoImage(file="../images/add_fishcard_tutorial/button.png")
-
+    labelBackgroundColour = 'red'
+    upload_status_text = 'Nie udało się.'
     your_font = "Amatic SC"
-    Label(root,text=f"{message} ",bg = 'red',compound='center',font=(your_font, 16, 'bold')).pack(pady=15)
-    Button(root,font=("Cooper Black", 11),width=191, height=50,borderwidth=0,compound='center', image =  button_image,text='Przejdź do listy fiszek', command=lambda: back_to_fishcard_list(root)).pack(pady=5)
-    Button(root,font=("Cooper Black", 11),width=191, height=50,borderwidth=0,compound='center',image =  button_image, text='Przejdź do menu', command=lambda: back_to_menu(root)).pack(pady=5)
-    Button(root,font=("Cooper Black", 11),width=191, height=50,borderwidth=0,compound='center',image =  button_image, text='Dodaj fiszki', command=lambda: back_to_upload(root)).pack(pady=5)
+    button_image = PhotoImage(file="../images/button.png")
+    if isUploaded ==True:
+        labelBackgroundColour = 'green'
+        upload_status_text = 'Udało się.'
+
+    Label(root, text=f"{upload_status_text} ", bg=labelBackgroundColour, compound='center', font=(your_font, 16, 'bold')).pack(pady=5)
+    Label(root,text=f"{message} ",bg = labelBackgroundColour,compound='center',font=(your_font, 16, 'bold')).pack(pady=5)
+    Button(root,font=(your_font, 18,'bold'),width=191, height=50,borderwidth=0,compound='center', image =  button_image,text='Przejdź do listy fiszek', command=lambda: back_to_fishcard_list(root)).pack(pady=5)
+    Button(root,font=(your_font, 18,'bold'),width=191, height=50,borderwidth=0,compound='center',image =  button_image, text='Przejdź do menu', command=lambda: back_to_menu(root)).pack(pady=5)
+    Button(root,font=(your_font, 18,'bold'),width=191, height=50,borderwidth=0,compound='center',image =  button_image, text='Dodaj fiszki', command=lambda: back_to_upload(root)).pack(pady=5)
     root.mainloop()
 
 def back_to_fishcard_list(root):

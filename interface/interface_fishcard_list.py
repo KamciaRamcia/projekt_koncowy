@@ -32,7 +32,7 @@ class FishCardListPage:
         # stworzenie framu z tytułem
         Label(self.root, text="Lista Twoich fiszek",bg = 'SkyBlue3', anchor='center',font=(FishCardListPage.your_font, 25, 'bold')).grid(padx=5, pady=5,row=0, column=1)
 
-        NewListElement.button_image = PhotoImage(file="../images/add_fishcard_tutorial/button.png")
+        NewListElement.button_image = PhotoImage(file="../images/button.png")
 
         for file in self.listOfFiles():
             dictionary_name = file[:-3]
@@ -44,7 +44,7 @@ class FishCardListPage:
 
     def back_to_menu_actions(self):
         self.root.destroy()
-        im.FirstPage0(Tk()).get_run_first_page()
+        im.FirstPage(Tk()).get_run_first_page()
 
     def get_run(self):
         self.set_window()

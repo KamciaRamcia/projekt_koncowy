@@ -31,7 +31,7 @@ def back_to_fishcard_list(root):
 
 def back_to_menu(root):
     root.destroy()
-    interface.interface_main.FirstPage0(Tk()).get_run_first_page()
+    interface.interface_main.FirstPage(Tk()).get_run_first_page()
 
 def back_to_upload(root):
     root.destroy()

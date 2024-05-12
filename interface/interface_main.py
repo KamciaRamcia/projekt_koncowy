@@ -7,7 +7,7 @@ import example_Fishcard.slowa as slowa
 import interface.interface_memo_game as img
 
 
-class FirstPage0:
+class FirstPage:
     global button_image
     global background_image
     def __init__(self, root):
@@ -18,9 +18,9 @@ class FirstPage0:
 
         self.root.geometry("750x400")
         self.root.resizable(width=False, height=False)
-        FirstPage0.background_image = PhotoImage(file="../images/fish.gif")
-        Label(self.root,image = FirstPage0.background_image).place(relheight=1,relwidth=1)
-        FirstPage0.button_image = PhotoImage(file="../images/button.png")
+        FirstPage.background_image = PhotoImage(file="../images/fish.gif")
+        Label(self.root, image = FirstPage.background_image).place(relheight=1, relwidth=1)
+        FirstPage.button_image = PhotoImage(file="../images/button.png")
 
     def get_run_memo_game(self):
         self.root.destroy()
@@ -36,10 +36,10 @@ class FirstPage0:
 
     def get_button(self):
 
-        Button(self.root, text="Zagraj w przykladową grę", borderwidth=0,image =  FirstPage0.button_image,compound='center',command=lambda:self.get_run_memo_game(), width=191, height=50,font=(self.your_font, 18,'bold')).pack(pady=4)
-        Button(self.root, text="Dodaj Fiszki", borderwidth=0, image =  FirstPage0.button_image,compound='center',command=lambda:self.get_run_add_fishcard(),width=191, height=50,font=(self.your_font, 18,'bold')).pack(pady=4)
-        Button(self.root, text="Lista Fiszek",borderwidth=0,image =  FirstPage0.button_image,compound='center', command=lambda:self.get_run_fishcard_list(),width=191, height=50,font=(self.your_font, 18,'bold')).pack(pady=4)
-        Button(self.root, text="Wyjście",borderwidth=0, image = FirstPage0.button_image,compound='center', command=self.root.destroy,width=191, height=50,font=(self.your_font, 18,'bold')).pack(pady=4)
+        Button(self.root, text="Zagraj w przykladową grę", borderwidth=0, image =  FirstPage.button_image, compound='center', command=lambda:self.get_run_memo_game(), width=191, height=50, font=(self.your_font, 18, 'bold')).pack(pady=4)
+        Button(self.root, text="Dodaj Fiszki", borderwidth=0, image =  FirstPage.button_image, compound='center', command=lambda:self.get_run_add_fishcard(), width=191, height=50, font=(self.your_font, 18, 'bold')).pack(pady=4)
+        Button(self.root, text="Lista Fiszek", borderwidth=0, image =  FirstPage.button_image, compound='center', command=lambda:self.get_run_fishcard_list(), width=191, height=50, font=(self.your_font, 18, 'bold')).pack(pady=4)
+        Button(self.root, text="Wyjście", borderwidth=0, image = FirstPage.button_image, compound='center', command=self.root.destroy, width=191, height=50, font=(self.your_font, 18, 'bold')).pack(pady=4)
     def get_welcome_sign(self):
 
         welcome_text_frame = Frame(self.root,bg='SkyBlue')
@@ -56,5 +56,5 @@ class FirstPage0:
 
 if __name__ == '__main__':
 
-    first = FirstPage0(Tk())
+    first = FirstPage(Tk())
     first.get_run_first_page()

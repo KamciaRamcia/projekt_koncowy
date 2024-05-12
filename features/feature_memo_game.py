@@ -26,7 +26,7 @@ class ButtonWithWord:
     def createButton(self):
 
         click_button = Button(self.frame,bg='black',font=(ButtonWithWord.your_font, 13,'bold'), width=40, height=1)
-        click_button.grid(row=self.row,column=self.column, padx=1, pady=1)# - odstep 1pixela od przyciskow
+        click_button.grid(row=self.row,column=self.column, padx=1, pady=1)
         click_button.config(command=lambda: self.click_action(click_button))
         ButtonWithWord.lista_buttonow[self.value] = click_button
 

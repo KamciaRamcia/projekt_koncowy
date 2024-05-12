@@ -13,6 +13,6 @@ def winnerInformation(click_counter):   # zmien nazwe na memo_game
     Button(root, image = button_image, borderwidth=0,compound='center',text='Wróć do menu głównego',width=191,font=(your_font, 18,'bold'), height=50, command= lambda: back_to_menu_actions()).pack(pady=10)
     def back_to_menu_actions():
         root.destroy()
-        im.FirstPage0(Tk()).get_run_first_page()
+        im.FirstPage(Tk()).get_run_first_page()
 
     root.mainloop()

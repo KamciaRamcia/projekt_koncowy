@@ -13,10 +13,14 @@ class NewFishcardSet:
         self.message = ''
 
     def csv_to_dict(self):
-        with open(self.path, mode='r',encoding="windows-1250") as content:
-            reader = csv.DictReader(content)
-            data = {row['angielski']:row['polski'] for row in reader}
-        return data
+        try:
+            with open(self.path, mode='r',encoding="windows-1250") as content:
+                reader = csv.DictReader(content)
+                data = {row['angielski']:row['polski'] for row in reader}
+            return data
+        except KeyError:
+            self.chceck_status = False
+            self.message = 'Nazwy języków są błędnie napisane. Sprawdź pierwszy wiersz w pliku.'
 
     def csv_to_list(self):
         fishcards_list = []
@@ -46,9 +50,9 @@ class NewFishcardSet:
                     self.check_quantity_of_pairs()
                     self.check_name_length()
                     self.check_duplicate_set_name()
-
+                    self.dictionary = self.csv_to_dict()
                     if self.chceck_status == True:
-                        self.dictionary = self.csv_to_dict()
+
                         self.save_fishcard_set()
 
 #------------------------sprawdzenie ilosci list fiszek ---------------------------
@@ -101,6 +105,7 @@ class NewFishcardSet:
             print('Nie odnaleziono pliku. Sprawdź czy ścieżka jest poprawna.')
             self.message = 'Nie odnaleziono pliku. Sprawdź czy ścieżka jest poprawna.'
             self.chceck_status=False
+
 
 
     def save_fishcard_set(self):

@@ -27,7 +27,7 @@ class MemoGamePage:
         random.shuffle(list_to_generate)
         return list_to_generate
 
-    def memoGame(self):   # zmien nazwe na memo_game
+    def memo_game(self):   # zmien nazwe na memo_game
         self.set_window()
         shuffled_list = self.shuffle_dictionary()
 
@@ -51,7 +51,7 @@ class MemoGamePage:
 
     def get_run(self):
         self.set_window()
-        self.memoGame()
+        self.memo_game()
         self.root.mainloop()
 
 def close_window(root):

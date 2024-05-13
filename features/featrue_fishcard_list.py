@@ -23,7 +23,7 @@ class NewListElement:
         frame.columnconfigure(1, minsize=300)
 
         frame.grid(row=NewListElement.start_row, column=1, padx=50)
-        text = importlib.import_module(f'tlumaczenia.{self.dictionary_name}')  # sciezka w formie textu do przycisku PLAY
+        text = importlib.import_module(f'all_fishcards.{self.dictionary_name}')  # sciezka w formie textu do przycisku PLAY
 
         label_name = Label(frame, text=self.dictionary_name ,font=("Sitka Banner", 13))
         label_name.grid(row=NewListElement.start_row, column=1, padx=5, pady=5)

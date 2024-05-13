@@ -22,7 +22,8 @@ def uploadStatus(message, isUploaded):   # zmien nazwe na memo_game
     Label(root,text=f"{message} ",bg = labelBackgroundColour,compound='center',font=(your_font, 16, 'bold')).pack(pady=5)
     Button(root,font=(your_font, 18,'bold'),width=191, height=50,borderwidth=0,compound='center', image =  button_image,text='Przejdź do listy fiszek', command=lambda: back_to_fishcard_list(root)).pack(pady=5)
     Button(root,font=(your_font, 18,'bold'),width=191, height=50,borderwidth=0,compound='center',image =  button_image, text='Przejdź do menu', command=lambda: back_to_menu(root)).pack(pady=5)
-    Button(root,font=(your_font, 18,'bold'),width=191, height=50,borderwidth=0,compound='center',image =  button_image, text='Dodaj fiszki', command=lambda: back_to_upload(root)).pack(pady=5)
+    Button(root, font=(your_font, 18,'bold'), width=191, height=50, borderwidth=0, compound='center', image =  button_image, text='Dodaj fiszki', command=lambda: back_to_upload_window(
+        root)).pack(pady=5)
     root.mainloop()
 
 def back_to_fishcard_list(root):
@@ -33,7 +34,7 @@ def back_to_menu(root):
     root.destroy()
     interface.interface_main.FirstPage(Tk()).get_run_first_page()
 
-def back_to_upload(root):
+def back_to_upload_window(root):
     root.destroy()
     interface_add_fishcard.AddFishcardPage().get_run()
 

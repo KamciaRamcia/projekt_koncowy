@@ -12,7 +12,6 @@ def deleteFishcard(dictionary_name):
     button_image = PhotoImage(file="../images/button.png")
     your_font = "Amatic SC"
 
-
     Label(root,font=(your_font, 20, 'bold'), text=f'Czy na pewno chcesz trwale usunac fiszki: {dictionary_name}?').grid(column = 1, row=1, pady=10, padx=10)
     Button(root,font=(your_font, 13, 'bold'), text='Tak! Juz ich nie chce na mojej liście',borderwidth=0,image =  button_image,compound='center',width=191, height=50,command = lambda: deleteAllElements(dictionary_name, root)).grid(column = 1, row=2,pady=20)
     Button(root,font=(your_font, 13, 'bold'), text='Coo?! Nie chce nic usuwać!!',borderwidth=0,image = button_image,compound='center',width=191, height=50,command=  lambda : back_to_fishcard_list(root)).grid(column = 1, row=4)
@@ -20,7 +19,7 @@ def deleteFishcard(dictionary_name):
     root.mainloop()
 
 def deleteAllElements(dictionary_name, root):
-    path_to_file = f"../tlumaczenia/{dictionary_name}.py"  # usuwa sie na serio
+    path_to_file = f"../all_fishcards/{dictionary_name}.py"
     print(path_to_file)
     if os.path.isfile(path_to_file):
         os.unlink(path_to_file)

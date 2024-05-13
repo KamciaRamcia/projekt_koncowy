@@ -22,10 +22,9 @@ class FishCardListPage:
         Label(self.root, image=FishCardListPage.background_image).place(relheight=1, relwidth=1)
 
     def listOfFiles(self):
-        files = os.listdir('../tlumaczenia/')
-        files_file = [f for f in files if os.path.isfile(os.path.join('../tlumaczenia/', f))]
+        files = os.listdir('../all_fishcards/')
+        files_file = [f for f in files if os.path.isfile(os.path.join('../all_fishcards/', f))]
         return files_file
-
 
     def generateFishcardList(self): # ZMIEN NAZW NA ADD_FISHCARD
 

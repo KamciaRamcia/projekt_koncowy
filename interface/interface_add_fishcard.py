@@ -8,7 +8,7 @@ from features import feature_add_fishcard as aff
 
 class AddFishcardPage:
 
-    global csv_file_screenshot   # obejscie do problemu z wyswietlaniem grafik --  Python removes image from memory when image is assigned to local variable (variable created in function). Change variable to global to make it save
+    global csv_file_screenshot
     global background_image
     global button_image
     your_font = "Amatic SC"
@@ -28,11 +28,9 @@ class AddFishcardPage:
         Label(self.root, image=AddFishcardPage.background_image).place(relheight=1, relwidth=1)
 
     def create_title(self):
-
         Label(self.root, text="DODAJ SWOJE FISZKI", bg='SkyBlue',font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=1, column=2, pady=10)
 
     def elements_for_input_box(self):
-
         Label(self.root, text="Ścieżka do pliku csv: ",font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=self.elements_start_row, column=1, pady=5, padx=5)
         path_textbox = Text(self.root, height=1, width=70, pady=5)
         path_textbox.grid(row=self.elements_start_row, column=2,pady=5)
@@ -54,19 +52,15 @@ class AddFishcardPage:
         Label(tutorial_text_frame, image=AddFishcardPage.csv_file_screenshot, bg='grey').grid(row=self.tutorial_start_row+3, column=2,pady=5)
 
     def get_input_from_both_textboxes(self,path_textbox,fishcard_name_textbox):
-
         path = path_textbox.get("1.0",'end-1c')
         fishcard_name = fishcard_name_textbox.get("1.0",'end-1c')
         self.run_set_of_checks(path,fishcard_name)
 
     def run_set_of_checks(self, path, fishcard_name):
-
         check_procedure = aff.NewFishcardSet(path, fishcard_name)
         check_procedure.set_of_checks()
-        print(check_procedure.message)
         self.root.destroy()
         interface.interface_upload_status_window.uploadStatus(check_procedure.message, check_procedure.is_uploaded)
-
 
     def get_run_fishcard_list(self):
         self.root.destroy()

@@ -30,12 +30,93 @@ W celu uruchomienia aplikacji należy uruchomic skrypt 'interface_main.py'
 Menu główne jest ekranem powitalnym, z którego użytkownik może przejść do innych interfejsów programu. 
 Kod znajduje się w skrypcie,,interface_main.py”.
 Klasy, które zostały stworzone na potrzeby skryptu:
-FirstPage - skrypt tworzy graficzny interfejs oraz posiada funkcje, dzięki którym wybranie przycisku otwiera inne interfejsy
+* FirstPage - skrypt tworzy graficzny interfejs oraz posiada funkcje, dzięki którym wybranie przycisku otwiera inne interfejsy
+<img src="https://github.com/KamciaRamcia/projekt_koncowy/assets/61707204/5a89e7fb-0ea2-48f2-af63-7382e031b2d2">
 
+2.2. Przykładowa gra
 
+Jako przykładowa gra generowana siatka na podstawie słownika, znajdującego się w folderze ,,Example_fishcard.py”.
 
+<img src="https://github.com/KamciaRamcia/projekt_koncowy/assets/61707204/9edfe92d-c1fd-4ec7-861b-0b06a98b36de">
+
+Kod znajduje się w skryptach:
+* ,,feature_memo_game.py”
+* ,,interface_memo_game.py”
+* ,,interface_winner_window.py”
+Klasy, które zostały stworzone na potrzeby skryptów:
+* MemoGamePage 
+* ButtonWithWord
+
+<img src="https://github.com/KamciaRamcia/projekt_koncowy/assets/61707204/24c9c249-d21b-45d0-a907-b7eaf95e08bc">
+
+Podany słownik przekształcany jest na listę, aby przemieszać słowa, a następnie tworzyć przyciski z kolejnymi elementami przemieszanej listy
+
+<img src="https://github.com/KamciaRamcia/projekt_koncowy/assets/61707204/b9389670-013b-4c8c-bc4b-9f87e9b3ce6f">
 	
+Użytkownik grając, naciska przyciski, aby znaleźć poprawną parę słowo-tłumaczenie.
+Gdy para jest błędna, wybrane przyciski zmieniają kolor na czerwony
+
+<img src="https://github.com/KamciaRamcia/projekt_koncowy/assets/61707204/00a22921-dffd-4194-aa51-d4a0c9b6f058">
+
+Gdy para jest poprawna - przyciski zmieniaja kolory na zielony
+
+<img src="https://github.com/KamciaRamcia/projekt_koncowy/assets/61707204/3b3d8be2-810e-4b9b-954d-963367538f14">
+
+Gdy użytkownik odnajdzie wszystkie pary. Zostaje ukazane okno ze statystyką. 
+
+<img src="https://github.com/KamciaRamcia/projekt_koncowy/assets/61707204/8aeaae06-dbeb-4630-b43a-b9a7f9a44ed7">
+
+2.3. Dodawanie fiszek
+
+Kod znajduje się w skryptach:
+* ,,feature_add_fishcard.py”
+* ,,interface_add_fishcard.py”
+* ,,interface_upload_status_window.py”
+Klasy, które zostały stworzone na potrzeby skryptów:
+* AddFishcardPage
+* NewFishcardSet
+
+Użytkownik może dodawać swoje fiszki. Wystarczy wgrać plik, który spełnia podane wymogi:
+* pierwszy wiersz posiada w dwóch pierwszych komórkach nazwy: angielski, polski
+* plik jest w formacie .csv
+* plik posiada maksymalnie 25 par słowo-tłumaczenie
+* ścieżka do pliku jest poprawna
+* plik nie posiada zduplikowanych słów
+* najdłuższe słowo posiada 40 znaków
+* nazwa zbioru fiszek (podawane przez użytkownika) posiada maksymalnie 30 znaków
+* nazwa pliku nie duplikuje się z plikiem już istniejącym
+  
+Program sprawdza czy wszystkie warunki zostały spełnione, aby dodać fiszki i zapisać je w pliku jako słownik.
+
+<img src="https://github.com/KamciaRamcia/projekt_koncowy/assets/61707204/7c6814c8-547b-4b37-a435-a015ee040abc">
+<img src="https://github.com/KamciaRamcia/projekt_koncowy/assets/61707204/3520dc6a-a7e2-4635-8b47-e7cb25fc30c2">
+<img src="https://github.com/KamciaRamcia/projekt_koncowy/assets/61707204/339fd211-091d-416e-8075-4ba79162504b">
+
+W przypadku, gdy plik nie spełnia wymogów - nowe okno zostaje otwarte. Wyświetlają się informacje co należy zmienić, aby wgrać słownik
+
+<img src="https://github.com/KamciaRamcia/projekt_koncowy/assets/61707204/04b2e6b7-c7b4-498d-b725-2c97fd6df6c2">
+
+2.4. Lista fiszek
+Kod znajduje się w skryptach:
+* ,,feature_fishcard_list.py”
+* ,,interface_delete_fishcard.py”
+* ,,interface_fishcard_list.py”
+  
+Klasy, które zostały stworzone na potrzeby skryptów:
+* FishCardListPage
+* NewListElement
+
+Program generuje listę fiszek, które zostały wgrane do aplikacji.
+
+<img src="https://github.com/KamciaRamcia/projekt_koncowy/assets/61707204/7b83d59b-8cbf-4b68-9898-a963705bc95c">
+
+Użytkownik może usunąć zbiór fiszek poprzez wybranie przycisku ‘usuń’.
+
+<img src="https://github.com/KamciaRamcia/projekt_koncowy/assets/61707204/80908a77-c8f2-4f95-80a5-1e77f3829a17">
 
 
+<img src="https://github.com/KamciaRamcia/projekt_koncowy/assets/61707204/894c38b9-70de-4642-a19d-73799c95b4b0">
 
+Gdy użytkownik wybiera opcję ,,Zagraj”, program otwiera okno z grą Memo używając wybranego słownika. Algorytm oblicza ile wiersz i kolumn powinno zostać wygenerowane dla danej liczby słów w słowniku.
 
+<img src="https://github.com/KamciaRamcia/projekt_koncowy/assets/61707204/e30dc210-3711-442e-a38d-3dacf1f3cba2">

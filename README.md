@@ -8,7 +8,7 @@
 
 Aplikacja pomaga w nauce słówek poprzez popularną grę Memo. Użytkownik, oprócz zagrania w przykładową grę, ma możliwość wgrać do programu własną listę słówek (fiszek) , aby posłużyła ona w rozgrywce.
 
-Program przekształca podany przez użytkonika plik csv na słownik. Na jego podstawie algorytm kalkuluje jak powinny zostać ułożone elementy gry, po czym generuje siatke elementów, gdzie każdy z elementów jest przyciskiem ze textem - atrybutem lub kluczem słownika.
+Program przekształca podany przez użytkonika plik csv na słownik. Na jego podstawie algorytm kalkuluje jak powinny zostać ułożone elementy gry, po czym generuje siatke elementów, gdzie każdy z elementów jest przyciskiem z tekstem - atrybutem lub kluczem słownika.
 Gra opiera się na podstawowych zasadach gry Memo. Uytkownik szuka par słowo - tłumaczenie, poprzez wybanie dwóch przycisków. Gdy para jest poprawna, przyciski zmieniają kolor na zielony. W przypadku błędnie wybranej pary, przyciski zmianają kolor na czewony.
 Użytkownik ma również możliwość usuwania zbioru fiszek - wtedy plik ze słownikiem zostanie trwale usunięty z projektu.
 

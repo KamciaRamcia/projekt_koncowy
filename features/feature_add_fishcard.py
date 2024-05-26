@@ -3,11 +3,10 @@ import csv
 
 class NewFishcardSet:
 
-    def __init__(self,path,fishcard_set_name,fishcard_language1,fishcard_language2):
+    def __init__(self,path,fishcard_set_name,fishcard_language1):
         self.path=path
         self.fishcard_set_name=fishcard_set_name
         self.fishcard_language1=fishcard_language1
-        self.fishcard_language2=fishcard_language2
         self.is_uploaded=False
         self.chceck_status=True
         self.dictionary = {}
@@ -18,7 +17,13 @@ class NewFishcardSet:
         try:
             with open(self.path, mode='r',encoding="windows-1250") as content:
                 reader = csv.DictReader(content)
-                data = {row[self.fishcard_language1]:row[self.fishcard_language2] for row in reader}
+                polish_data= [row['polski'] for row in reader]
+                print(polish_data)
+            with open(self.path, mode='r',encoding="UTF-8") as content:
+                reader = csv.DictReader(content)
+                translated_data = [row[self.fishcard_language1] for row in reader]
+                print(translated_data)
+            data = dict(zip(translated_data, polish_data))
             return data
         except KeyError:
             self.chceck_status = False
@@ -26,7 +31,7 @@ class NewFishcardSet:
 
     def csv_to_list(self):
         fishcards_list = []
-        with open(self.path, mode='r',encoding="windows-1250") as content:
+        with open(self.path, mode='r',encoding="UTF-8") as content:
             for line in content.readlines():
                 word_eng, word_pol = line.strip().replace('"','').split(',')
                 fishcards_list.append(word_eng)

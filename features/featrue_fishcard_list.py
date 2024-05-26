@@ -39,7 +39,6 @@ class NewListElement:
                                image=NewListElement.button_image,
                                compound='center', command=lambda: self.delete_actions(),width=125, height=25,font=(NewListElement.your_font, 15,'bold'))
         button_remove.grid(row=NewListElement.start_row, column=4, padx=5, pady=5)
-        print(self.dictionary_name)
 
         NewListElement.start_row = NewListElement.start_row + 1
 

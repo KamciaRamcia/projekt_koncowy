@@ -3,9 +3,11 @@ import csv
 
 class NewFishcardSet:
 
-    def __init__(self,path,fishcard_set_name):
+    def __init__(self,path,fishcard_set_name,fishcard_language1,fishcard_language2):
         self.path=path
         self.fishcard_set_name=fishcard_set_name
+        self.fishcard_language1=fishcard_language1
+        self.fishcard_language2=fishcard_language2
         self.is_uploaded=False
         self.chceck_status=True
         self.dictionary = {}
@@ -16,11 +18,11 @@ class NewFishcardSet:
         try:
             with open(self.path, mode='r',encoding="windows-1250") as content:
                 reader = csv.DictReader(content)
-                data = {row['angielski']:row['polski'] for row in reader}
+                data = {row[self.fishcard_language1]:row[self.fishcard_language2] for row in reader}
             return data
         except KeyError:
             self.chceck_status = False
-            self.message = 'Nazwy języków są błędnie napisane. Sprawdź pierwszy wiersz w pliku.'
+            self.message = 'Nazwy języków w formularzu są inne niż pliku .csv. Sprawdź pierwszy wiersz w pliku.'
 
     def csv_to_list(self):
         fishcards_list = []
@@ -62,7 +64,6 @@ class NewFishcardSet:
 
 #-----------------------------sprawdzenia nazwy pliku------------------------
     def check_duplicate_set_name(self):
-        print(self.fishcard_set_name)
         if (self.fishcard_set_name+'.py') in self.generate_files_list():
             self.message = 'Istnieje już zestaw fiszek o tej nazwie. Zmień nazwę, aby dodać swój zbiór.'
             self.chceck_status = False

@@ -1,5 +1,7 @@
 import importlib
+import tkinter
 from tkinter import *
+from tkinter import filedialog
 
 import interface.interface_upload_status_window
 import interface_fishcard_list
@@ -18,6 +20,7 @@ class AddFishcardPage:
         self.tutorial_start_row = 2
         self.elements_start_row = 6
 
+
     def set_window(self):
         self.root.geometry("750x600")
         self.root.resizable(width=False, height=False)
@@ -30,16 +33,41 @@ class AddFishcardPage:
     def create_title(self):
         Label(self.root, text="DODAJ SWOJE FISZKI", bg='SkyBlue',font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=1, column=2, pady=10)
 
+    def find_file_path(self,path_textbox):
+        findedFilePath = filedialog.askopenfilename()
+        path_textbox.insert(INSERT, findedFilePath)
+        path_textbox.grid()
+
     def elements_for_input_box(self):
+
         Label(self.root, text="Ścieżka do pliku csv: ",font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=self.elements_start_row, column=1, pady=5, padx=5)
-        path_textbox = Text(self.root, height=1, width=70, pady=5)
+
+        path_textbox = Text(self.root, height=1, width=60, pady=5)
         path_textbox.grid(row=self.elements_start_row, column=2,pady=5)
 
-        Label(self.root, text="Nazwa fiszek: ",font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=self.elements_start_row+1, column=1,pady=5)
-        fishcard_name_textbox = Text(self.root, height=1, width=70, pady=5)
-        fishcard_name_textbox.grid(row=self.elements_start_row+1, column=2,pady=5)
+        Button(self.root, height=25, width=100, borderwidth=1, text="Szukaj", image=AddFishcardPage.button_image,
+               compound='center', font=(AddFishcardPage.your_font, 15, 'bold'),
+               command=lambda: self.find_file_path(path_textbox)).grid(
+            row=self.elements_start_row, column=3, padx=10)
 
-        Button(self.root, height=50, width=191,borderwidth=0, text="Wgarj",image =  AddFishcardPage.button_image,compound='center',font=(AddFishcardPage.your_font, 18,'bold'),command=lambda: self.get_input_from_both_textboxes(path_textbox,fishcard_name_textbox)).grid(row=self.elements_start_row+2, column=2, padx=10)
+        Label(self.root, text="Nazwa fiszek: ",font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=self.elements_start_row+2, column=1,pady=5)
+        fishcard_name_textbox = Text(self.root, height=1, width=60, pady=5)
+        fishcard_name_textbox.grid(row=self.elements_start_row+2, column=2,pady=5)
+
+        frame_language_fishcard = Frame(self.root,bg='SkyBlue3', width=60)
+        frame_language_fishcard.grid(row=self.elements_start_row+3, column=2, pady=5,sticky = 'w')
+
+        Label(self.root, text="Język fiszek: ",font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=self.elements_start_row+3, column=1,pady=5)
+        fishcard_language_textbox = Text(frame_language_fishcard, height=1, width=20, pady=5)
+        fishcard_language_textbox.insert(INSERT, 'angielski')
+        fishcard_language_textbox.grid(row=self.elements_start_row+2, column=1,pady=5, padx=5)
+
+        fishcard_language_textbox2 = Text(frame_language_fishcard, height=1, width=20, pady=5)
+        fishcard_language_textbox2.insert(INSERT, 'polski')
+        fishcard_language_textbox2.grid(row=self.elements_start_row + 2, column=2, pady=5,padx=5)
+
+        Button(self.root, height=50, width=191, borderwidth=0, text="Wgarj", image =  AddFishcardPage.button_image, compound='center', font=(AddFishcardPage.your_font, 18,'bold'), command=lambda: self.get_input_from_all_textboxes(
+            path_textbox, fishcard_name_textbox,fishcard_language_textbox,fishcard_language_textbox2)).grid(row=self.elements_start_row + 4, column=2, padx=10, pady=50)
 
     def elements_for_tutorial(self):
         tutorial_text_frame = Frame(self.root, bg='SkyBlue')
@@ -47,17 +75,19 @@ class AddFishcardPage:
 
         Label(tutorial_text_frame,bg='SkyBlue', text="1. Upewnij się, że Twój plik jest w formacie csv",font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=self.tutorial_start_row, column=2,padx=5)
         Label(tutorial_text_frame,bg='SkyBlue', text = "2. Upewnij się, że Twój plik zawiera maksymalnie 25 par slowo-tłumaczenie",font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=self.tutorial_start_row+1, column=2,padx=5)
-        Label(tutorial_text_frame,bg='SkyBlue', text = "3. Sprawdź czy pierwszy wiersz w Twoim pliku zawiera nazwę języków, jak na grafice poniżej",font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=self.tutorial_start_row+2, column=2,padx=5)
+        Label(tutorial_text_frame,bg='SkyBlue', text = "3. Sprawdź czy pierwszy wiersz w Twoim pliku zawiera nazwę języków,\n jak na grafice poniżej",font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=self.tutorial_start_row+2, column=2,padx=5)
 
         Label(tutorial_text_frame, image=AddFishcardPage.csv_file_screenshot, bg='grey').grid(row=self.tutorial_start_row+3, column=2,pady=5)
 
-    def get_input_from_both_textboxes(self,path_textbox,fishcard_name_textbox):
+    def get_input_from_all_textboxes(self,path_textbox,fishcard_name_textbox,fishcard_language1, fishcard_language2):
         path = path_textbox.get("1.0",'end-1c')
         fishcard_name = fishcard_name_textbox.get("1.0",'end-1c')
-        self.run_set_of_checks(path,fishcard_name)
+        fishcard_language1 = fishcard_language1.get("1.0",'end-1c')
+        fishcard_language2 = fishcard_language2.get("1.0",'end-1c')
+        self.run_set_of_checks(path,fishcard_name,fishcard_language1,fishcard_language2)
 
-    def run_set_of_checks(self, path, fishcard_name):
-        check_procedure = aff.NewFishcardSet(path, fishcard_name)
+    def run_set_of_checks(self, path, fishcard_name,fishcard_language1,fishcard_language2):
+        check_procedure = aff.NewFishcardSet(path, fishcard_name,fishcard_language1,fishcard_language2)
         check_procedure.set_of_checks()
         self.root.destroy()
         interface.interface_upload_status_window.uploadStatus(check_procedure.message, check_procedure.is_uploaded)

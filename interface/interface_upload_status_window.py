@@ -5,8 +5,6 @@ from interface import interface_fishcard_list, interface_add_fishcard
 
 global button_image
 def uploadStatus(message, isUploaded):   # zmien nazwe na memo_game
-
-    print(f'-------------------{message}')
     root = Tk()
     root.geometry("400x400")
     root.config(bg="skyblue")

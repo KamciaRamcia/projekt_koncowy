@@ -1,5 +1,3 @@
-import importlib
-import tkinter
 from tkinter import *
 from tkinter import filedialog
 
@@ -9,17 +7,11 @@ from features import feature_add_fishcard as aff
 
 
 class AddFishcardPage:
-
-    global csv_file_screenshot
-    global background_image
-    global button_image
     your_font = "Amatic SC"
 
     def __init__(self):
         self.root = Tk()
-        self.tutorial_start_row = 2
-        self.elements_start_row = 6
-
+        self.cur_row = 2
 
     def set_window(self):
         self.root.geometry("750x600")
@@ -31,46 +23,61 @@ class AddFishcardPage:
         Label(self.root, image=AddFishcardPage.background_image).place(relheight=1, relwidth=1)
 
     def create_title(self):
-        Label(self.root, text="DODAJ SWOJE FISZKI", bg='SkyBlue',font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=1, column=2, pady=10)
+        Label(self.root, text="DODAJ SWOJE FISZKI", bg='SkyBlue', font=(AddFishcardPage.your_font, 15, 'bold')).grid(
+            row=1, column=2, pady=10)
 
-    def find_file_path(self,path_textbox):
+    def find_file_path(self, path_textbox):
         findedFilePath = filedialog.askopenfilename()
         path_textbox.insert(INSERT, findedFilePath)
         path_textbox.grid()
 
     def elements_for_input_box(self):
-
-        Label(self.root, text="Ścieżka do pliku csv: ",font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=self.elements_start_row, column=1, pady=5, padx=5)
+        elements_start_row = self.cur_row
+        Label(self.root, text="Ścieżka do pliku csv: ", font=(AddFishcardPage.your_font, 15, 'bold')).grid(
+            row=elements_start_row, column=1, pady=5, padx=5)
 
         path_textbox = Text(self.root, height=1, width=60, pady=5)
-        path_textbox.grid(row=self.elements_start_row, column=2,pady=5)
+        path_textbox.grid(row=elements_start_row, column=2, pady=5)
 
         Button(self.root, height=25, width=100, borderwidth=1, text="Szukaj", image=AddFishcardPage.button_image,
                compound='center', font=(AddFishcardPage.your_font, 15, 'bold'),
                command=lambda: self.find_file_path(path_textbox)).grid(
-            row=self.elements_start_row, column=3, padx=10)
+            row=elements_start_row, column=3, padx=10)
 
-        Label(self.root, text="Nazwa fiszek: ",font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=self.elements_start_row+2, column=1,pady=5)
+        Label(self.root, text="Nazwa fiszek: ", font=(AddFishcardPage.your_font, 15, 'bold')).grid(
+            row=elements_start_row + 2, column=1, pady=5)
         fishcard_name_textbox = Text(self.root, height=1, width=60, pady=5)
-        fishcard_name_textbox.grid(row=self.elements_start_row+2, column=2,pady=5)
+        fishcard_name_textbox.grid(row=elements_start_row + 2, column=2, pady=5)
 
-        Button(self.root, height=50, width=191, borderwidth=0, text="Wgarj", image =  AddFishcardPage.button_image, compound='center', font=(AddFishcardPage.your_font, 18,'bold'), command=lambda: self.get_input_from_all_textboxes(
-            path_textbox, fishcard_name_textbox)).grid(row=self.elements_start_row + 4, column=2, padx=10, pady=50)
+        Button(self.root, height=50, width=191, borderwidth=0, text="Wgarj", image=AddFishcardPage.button_image,
+               compound='center', font=(AddFishcardPage.your_font, 18, 'bold'),
+               command=lambda: self.get_input_from_all_textboxes(
+                   path_textbox, fishcard_name_textbox)).grid(row=elements_start_row + 4, column=2, padx=10,
+                                                              pady=50)
+        self.cur_row += 5
 
     def elements_for_tutorial(self):
+        tutorial_start_row = self.cur_row
         tutorial_text_frame = Frame(self.root, bg='SkyBlue')
-        tutorial_text_frame.grid(row = self.tutorial_start_row,column=2)
+        tutorial_text_frame.grid(row=tutorial_start_row, column=2)
 
-        Label(tutorial_text_frame,bg='SkyBlue', text="1. Upewnij się, że Twój plik jest w formacie csv",font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=self.tutorial_start_row, column=2,padx=5)
-        Label(tutorial_text_frame,bg='SkyBlue', text = "2. Upewnij się, że Twój plik zawiera maksymalnie 25 par slowo-tłumaczenie",font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=self.tutorial_start_row+1, column=2,padx=5)
-        Label(tutorial_text_frame,bg='SkyBlue', text = "3. Sprawdź czy pierwszy wiersz w Twoim pliku zawiera nazwę języków,\n jak na grafice poniżej",font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=self.tutorial_start_row+2, column=2,padx=5)
+        Label(tutorial_text_frame, bg='SkyBlue', text="1. Upewnij się, że Twój plik jest w formacie csv",
+              font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=tutorial_start_row, column=2, padx=5)
+        Label(tutorial_text_frame, bg='SkyBlue',
+              text="2. Upewnij się, że Twój plik zawiera maksymalnie 25 par slowo-tłumaczenie",
+              font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=tutorial_start_row + 1, column=2, padx=5)
+        Label(tutorial_text_frame, bg='SkyBlue',
+              text="3. Sprawdź czy pierwszy wiersz w Twoim pliku zawiera nazwę języków,\n jak na grafice poniżej",
+              font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=tutorial_start_row + 2, column=2, padx=5)
 
-        Label(tutorial_text_frame, image=AddFishcardPage.csv_file_screenshot, bg='grey').grid(row=self.tutorial_start_row+3, column=2,pady=5)
+        Label(tutorial_text_frame, image=AddFishcardPage.csv_file_screenshot, bg='grey').grid(
+            row=tutorial_start_row + 3, column=2, pady=5)
+        self.cur_row += 4
 
-    def get_input_from_all_textboxes(self,path_textbox,fishcard_name_textbox ):
-        path = path_textbox.get("1.0",'end-1c')
-        fishcard_name = fishcard_name_textbox.get("1.0",'end-1c')
-        self.run_set_of_checks(path,fishcard_name)
+    def get_input_from_all_textboxes(self, path_textbox, fishcard_name_textbox):
+        path = path_textbox.get("1.0", 'end-1c')
+        fishcard_name = fishcard_name_textbox.get("1.0", 'end-1c')
+        self.run_set_of_checks(path, fishcard_name)
 
     def run_set_of_checks(self, path, fishcard_name):
         check_procedure = aff.NewFishcardSet(path, fishcard_name)
@@ -88,6 +95,3 @@ class AddFishcardPage:
         self.elements_for_tutorial()
         self.elements_for_input_box()
         self.root.mainloop()
-
-
-

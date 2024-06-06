@@ -1,5 +1,6 @@
 import importlib
 import json
+import os
 
 from tkinter import *
 
@@ -51,3 +52,9 @@ class NewListElement:
     def play_game_actions(self, your_dictionary):
         self.root.destroy()
         interface_memo_game.MemoGamePage(your_dictionary).get_run()
+
+
+def listOfFiles():
+    files = os.listdir('../all_fishcards/')
+    files_file = [f for f in files if os.path.isfile(os.path.join('../all_fishcards/', f))]
+    return files_file

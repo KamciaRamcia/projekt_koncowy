@@ -34,7 +34,7 @@ class FishCardListPage:
         NewListElement.button_image = PhotoImage(file="../images/button.png")
 
         for file in self.listOfFiles():
-            dictionary_name = file[:-3]
+            dictionary_name = file
             NewListElement(dictionary_name,self.root).create_elements()
 
         Button(self.root, text='Wróć do menu głównego',borderwidth=1,

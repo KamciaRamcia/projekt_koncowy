@@ -54,18 +54,8 @@ class AddFishcardPage:
         fishcard_name_textbox = Text(self.root, height=1, width=60, pady=5)
         fishcard_name_textbox.grid(row=self.elements_start_row+2, column=2,pady=5)
 
-        frame_language_fishcard = Frame(self.root,bg='SkyBlue3', width=60)
-        frame_language_fishcard.grid(row=self.elements_start_row+3, column=2, pady=5,sticky = 'w')
-
-        Label(self.root, text="Język fiszek: ",font=(AddFishcardPage.your_font, 15, 'bold')).grid(row=self.elements_start_row+3, column=1,pady=5)
-        fishcard_language_textbox = Text(frame_language_fishcard, height=1, width=20, pady=5)
-        fishcard_language_textbox.insert(INSERT, 'angielski')
-        fishcard_language_textbox.grid(row=self.elements_start_row+2, column=1,pady=5, padx=5)
-
-        Label(frame_language_fishcard, text = ': polski',height=1, width=20, bg='SkyBlue3', pady=5).grid(row=self.elements_start_row + 2, column=2, pady=5, padx=5)
-
         Button(self.root, height=50, width=191, borderwidth=0, text="Wgarj", image =  AddFishcardPage.button_image, compound='center', font=(AddFishcardPage.your_font, 18,'bold'), command=lambda: self.get_input_from_all_textboxes(
-            path_textbox, fishcard_name_textbox,fishcard_language_textbox)).grid(row=self.elements_start_row + 4, column=2, padx=10, pady=50)
+            path_textbox, fishcard_name_textbox)).grid(row=self.elements_start_row + 4, column=2, padx=10, pady=50)
 
     def elements_for_tutorial(self):
         tutorial_text_frame = Frame(self.root, bg='SkyBlue')
@@ -77,14 +67,13 @@ class AddFishcardPage:
 
         Label(tutorial_text_frame, image=AddFishcardPage.csv_file_screenshot, bg='grey').grid(row=self.tutorial_start_row+3, column=2,pady=5)
 
-    def get_input_from_all_textboxes(self,path_textbox,fishcard_name_textbox,fishcard_language1, ):
+    def get_input_from_all_textboxes(self,path_textbox,fishcard_name_textbox ):
         path = path_textbox.get("1.0",'end-1c')
         fishcard_name = fishcard_name_textbox.get("1.0",'end-1c')
-        fishcard_language1 = fishcard_language1.get("1.0",'end-1c')
-        self.run_set_of_checks(path,fishcard_name,fishcard_language1)
+        self.run_set_of_checks(path,fishcard_name)
 
-    def run_set_of_checks(self, path, fishcard_name,fishcard_language1):
-        check_procedure = aff.NewFishcardSet(path, fishcard_name,fishcard_language1)
+    def run_set_of_checks(self, path, fishcard_name):
+        check_procedure = aff.NewFishcardSet(path, fishcard_name)
         check_procedure.set_of_checks()
         self.root.destroy()
         interface.interface_upload_status_window.uploadStatus(check_procedure.message, check_procedure.is_uploaded)

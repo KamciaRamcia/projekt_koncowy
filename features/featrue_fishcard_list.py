@@ -1,5 +1,5 @@
 import importlib
-
+import json
 
 from tkinter import *
 
@@ -23,14 +23,16 @@ class NewListElement:
         frame.columnconfigure(1, minsize=300)
 
         frame.grid(row=NewListElement.start_row, column=1, padx=50)
-        text = importlib.import_module(f'all_fishcards.{self.dictionary_name}')  # sciezka w formie textu do przycisku PLAY
+
+        imported_dictionary = json.load( open(f'..\\all_fishcards\\{self.dictionary_name}'))
+       # text = importlib.import_module(f'all_fishcards.{self.dictionary_name}')  # sciezka w formie textu do przycisku PLAY
 
         label_name = Label(frame, text=self.dictionary_name ,font=("Sitka Banner", 13))
         label_name.grid(row=NewListElement.start_row, column=1, padx=5, pady=5)
 
         button_play = Button(frame, text="Zagraj", borderwidth=1,
                              image=NewListElement.button_image,
-                             compound='center', command=lambda: self.play_game_actions(text.slownik)
+                             compound='center', command=lambda: self.play_game_actions(imported_dictionary)
                              ,width=100, height=25,font=(NewListElement.your_font, 15,'bold')
                              )
         button_play.grid(row=NewListElement.start_row, column=3, padx=5, pady=5)

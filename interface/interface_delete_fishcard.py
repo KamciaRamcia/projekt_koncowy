@@ -19,7 +19,7 @@ def deleteFishcard(dictionary_name):
     root.mainloop()
 
 def deleteAllElements(dictionary_name, root):
-    path_to_file = f"../all_fishcards/{dictionary_name}.py"
+    path_to_file = f"../all_fishcards/{dictionary_name}"
     print(path_to_file)
     if os.path.isfile(path_to_file):
         os.unlink(path_to_file)

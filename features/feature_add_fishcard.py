@@ -1,12 +1,14 @@
 import os
 import csv
+import json
 
 class NewFishcardSet:
 
-    def __init__(self,path,fishcard_set_name,fishcard_language1):
+    def __init__(self,path,fishcard_set_name):
         self.path=path
         self.fishcard_set_name=fishcard_set_name
-        self.fishcard_language1=fishcard_language1
+        self.fishcard_language1 = ''
+        self.fishcard_language2 = ''
         self.is_uploaded=False
         self.chceck_status=True
         self.dictionary = {}
@@ -14,28 +16,19 @@ class NewFishcardSet:
         self.message = ''
 
     def csv_to_dict(self):
-        try:
-            with open(self.path, mode='r',encoding="windows-1250") as content:
-                reader = csv.DictReader(content)
-                polish_data= [row['polski'] for row in reader]
-                print(polish_data)
-            with open(self.path, mode='r',encoding="UTF-8") as content:
-                reader = csv.DictReader(content)
-                translated_data = [row[self.fishcard_language1] for row in reader]
-                print(translated_data)
-            data = dict(zip(translated_data, polish_data))
-            return data
-        except KeyError:
-            self.chceck_status = False
-            self.message = 'Nazwy języków w formularzu są inne niż pliku .csv. Sprawdź pierwszy wiersz w pliku.'
+        with open(self.path, mode='r', encoding="UTF-8") as content:
+            reader = csv.DictReader(content)
+            data = {row[self.fishcard_language1]: row[self.fishcard_language2] for row in reader}
+        return data
 
     def csv_to_list(self):
         fishcards_list = []
         with open(self.path, mode='r',encoding="UTF-8") as content:
+            self.fishcard_language1, self.fishcard_language2 = (content.readline().strip().replace('"','').split(','))
             for line in content.readlines():
-                word_eng, word_pol = line.strip().replace('"','').split(',')
-                fishcards_list.append(word_eng)
-                fishcards_list.append(word_pol)
+                word_language1, word_language2 = line.strip().replace('"','').split(',')
+                fishcards_list.append(word_language1)
+                fishcards_list.append(word_language2)
         return fishcards_list
 
     def generate_files_list(self):          #generuje liste plikow w folderu all_fishcards
@@ -69,7 +62,7 @@ class NewFishcardSet:
 
 #-----------------------------sprawdzenia nazwy pliku------------------------
     def check_duplicate_set_name(self):
-        if (self.fishcard_set_name+'.py') in self.generate_files_list():
+        if (self.fishcard_set_name+'.json') in self.generate_files_list():
             self.message = 'Istnieje już zestaw fiszek o tej nazwie. Zmień nazwę, aby dodać swój zbiór.'
             self.chceck_status = False
 
@@ -109,15 +102,15 @@ class NewFishcardSet:
 
     def save_fishcard_set(self):
 
-        filename = '../all_fishcards/'+self.fishcard_set_name+'.py'
+        filename = '../all_fishcards/'+self.fishcard_set_name+'.json'
         with open(filename, 'w') as f:
-            f.write(f"slownik = {self.dictionary}")
+            json.dump(self.dictionary,f)
         f.close()
         self.status_message()
 
     def status_message(self):
         file_list = self.generate_files_list()
-        if (self.fishcard_set_name+'.py') in file_list:
+        if (self.fishcard_set_name+'.json') in file_list:
             self.message = f'Zbiór fiszek {self.fishcard_set_name} został dodany'
             self.is_uploaded=True
 
